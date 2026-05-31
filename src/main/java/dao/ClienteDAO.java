@@ -14,6 +14,10 @@ public class ClienteDAO {
     private List<Cliente> objetos = new ArrayList<>();
     private final String ARQUIVO = "clientes.json";
 
+    /**
+     * Adiciona a indentação correta para o arquivo JSON
+     * Construtor da classe que configura o mapeador do Jackson.
+     */
     public ClienteDAO(){
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
     }
@@ -22,13 +26,25 @@ public class ClienteDAO {
         try {
             File arquivo = new File(ARQUIVO);
             if (arquivo.exists()){
+                /**
+                 * readValue: Desserialização (JSON ⇾ Java).
+                 * Sobrecarga usada: lê dois paramêtros, origem dos dados e o formato do destino.
+                 */
                objetos = mapper.readValue(arquivo, new TypeReference<List<Cliente>>(){});
+                /**
+                 * TypeReference: Obriga o Jackson a gravar e lembrar a tipagem exata
+                 * da lista. Evita que o JSON não seja convertido em objetos genéricos.
+                 */
             }
         } catch (Exception e) { objetos = new ArrayList<>();}
     }
 
     public void salvar(){
         try {
+            /**
+             * writeValue: Serialização (Java → JSON).
+             * Transforma o objeto da lista em um JSON.
+             */
             File arquivo = new File(ARQUIVO);
             mapper.writeValue(arquivo, objetos);
         } catch (Exception e) {

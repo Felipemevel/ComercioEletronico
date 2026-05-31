@@ -15,10 +15,20 @@ public class VendaItemDAO {
     private ObjectMapper mapper = new ObjectMapper();
     private final String ARQUIVO = "vendaitem.json";
 
+    /**
+     * Adiciona a indentação correta para o arquivo JSON
+     * Construtor da classe que configura o mapeador do Jackson.
+     */
     public VendaItemDAO(){
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
     }
 
+    /**
+     * writeValue: Serialização (Java → JSON).
+     * Transforma o objeto da lista em um JSON.
+     * TypeReference: Obriga o Jackson a gravar e lembrar a tipagem exata
+     * da lista. Evita que o JSON não seja convertido em objetos genéricos.
+     */
     public void abrir(){
         try {
             File arquivo = new File(ARQUIVO);
@@ -27,6 +37,11 @@ public class VendaItemDAO {
             }
         } catch (Exception e) {objetos = new ArrayList<>();}
     }
+    
+    /**
+     * writeValue: Serialização (Java → JSON).
+     * Transforma o objeto da lista em um JSON.
+     */
     public void salvar(){
         try {
             File arquivo = new File(ARQUIVO);

@@ -22,29 +22,27 @@ public class ClienteDAO {
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
     }
 
+    /**
+     * readValue: Desserialização (JSON ⇾ Java).
+     * Sobrecarga usada: lê dois paramêtros, origem dos dados e o formato do destino.
+     * TypeReference: Obriga o Jackson a gravar e lembrar a tipagem exata
+     * da lista. Evita que o JSON não seja convertido em objetos genéricos.
+     */
     public void abrir(){
         try {
             File arquivo = new File(ARQUIVO);
             if (arquivo.exists()){
-                /**
-                 * readValue: Desserialização (JSON ⇾ Java).
-                 * Sobrecarga usada: lê dois paramêtros, origem dos dados e o formato do destino.
-                 */
                objetos = mapper.readValue(arquivo, new TypeReference<List<Cliente>>(){});
-                /**
-                 * TypeReference: Obriga o Jackson a gravar e lembrar a tipagem exata
-                 * da lista. Evita que o JSON não seja convertido em objetos genéricos.
-                 */
             }
         } catch (Exception e) { objetos = new ArrayList<>();}
     }
 
+    /**
+     * writeValue: Serialização (Java → JSON).
+     * Transforma o objeto da lista em um JSON.
+     */
     public void salvar(){
         try {
-            /**
-             * writeValue: Serialização (Java → JSON).
-             * Transforma o objeto da lista em um JSON.
-             */
             File arquivo = new File(ARQUIVO);
             mapper.writeValue(arquivo, objetos);
         } catch (Exception e) {

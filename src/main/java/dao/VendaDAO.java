@@ -14,7 +14,6 @@ public class VendaDAO {
     private List<Venda> objetos = new ArrayList<>();
     private ObjectMapper mapper = new ObjectMapper();
     private final String ARQUIVO = "venda.json";
-
     /**
      * Adiciona a indentação correta para o arquivo JSON
      * Construtor da classe que configura o mapeador do Jackson.

@@ -24,8 +24,8 @@ public class VendaItemDAO {
     }
 
     /**
-     * writeValue: Serialização (Java → JSON).
-     * Transforma o objeto da lista em um JSON.
+     * readValue: Desserialização (JSON ⇾ Java).
+     * Sobrecarga usada: lê dois paramêtros, origem dos dados e o formato do destino.
      * TypeReference: Obriga o Jackson a gravar e lembrar a tipagem exata
      * da lista. Evita que o JSON não seja convertido em objetos genéricos.
      */
@@ -37,7 +37,7 @@ public class VendaItemDAO {
             }
         } catch (Exception e) {objetos = new ArrayList<>();}
     }
-    
+
     /**
      * writeValue: Serialização (Java → JSON).
      * Transforma o objeto da lista em um JSON.

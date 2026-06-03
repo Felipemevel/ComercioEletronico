@@ -86,8 +86,8 @@ public class UI {
             option = Util.convInt(sc, "> Digite a opção: ");
 
             switch (option){
-                case 1 -> System.out.println("Em construção...");
-                case 2 -> System.out.println("Em construção...");
+                case 1 -> inserirProduto();
+                case 2 -> listarProdutos();
                 case 3 -> System.out.println("Em construção...");
                 case 4 -> System.out.println("Em construção...");
                 case 5 -> System.out.println(">>> Voltando ao menu principal...");
@@ -126,6 +126,8 @@ public class UI {
      *  MÉTODOS CLIENTE
      */
     public static void inserirCliente(){
+        System.out.println("\n=== INSERIR NOVO CLIENTE ===");
+
         String nome = Util.lerTexto(sc, "> Insira o nome do cliente");
         String fone = Util.lerTexto(sc, "> Insira o telefone do cliente");
         String email = Util.lerTexto(sc, "> Insira o e-mail do cliente");
@@ -137,8 +139,6 @@ public class UI {
     }
 
     public static void listarClientes(){
-        System.out.println("\n=== LISTA DE CLIENTES ===");
-
         var lista = clienteDAO.listar();
         if (lista.isEmpty()){
             System.out.println("Nenhum cliente cadastrado no sistema.");
@@ -162,7 +162,7 @@ public class UI {
             System.out.println(">>> Erro: Cliente com ID " + id + " não encontrado.");
             return;
         }
-        System.out.println("\nDados atuais do cliente:");
+        System.out.println("\n>>> Dados atuais do cliente:");
         System.out.println(clienteDesejado);
         System.out.println("-----------------------------------");
 
@@ -196,6 +196,8 @@ public class UI {
      */
 
     public static void inserirProduto(){
+        System.out.println("\n=== INSERIR NOVO PRODUTO ===");
+
         String descricao = Util.lerTexto(sc, ">>> Insira a descrição do produto: ");
         double preco = Util.convDouble(sc, ">>> Insira o preço do produto: ");
         int estoque = Util.convInt(sc, ">>> Insira a quantidade de produtos no estoque: ");
@@ -204,5 +206,38 @@ public class UI {
         produtoDAO.inserir(novoProduto);
 
         System.out.println(">>> Produto cadastrado com sucesso!");
+    }
+
+    public static void listarProdutos(){
+        var lista = produtoDAO.listar();
+        if (lista.isEmpty()){
+            System.out.println("Nenhum produto cadastrado no sistema.");
+            return;
+        }
+        System.out.println("\n=== LISTA DE PRODUTOS ===");
+        for (Produto p : lista){
+            System.out.println("= " + p);
+            System.out.println("-----------------------------------");
+        }
+    }
+
+    public static void atualizarProduto(){
+        int id = Util.convInt(sc, ">>> Digite o ID do produto que deseja atualizar: ");
+        Produto produtoDesejado = produtoDAO.listarId(id);
+
+        if (produtoDesejado == null){
+            System.out.println(">>> Erro: Cliente com ID " + id + " não encontrado.");
+            return;
+        }
+        System.out.println("\n>>> Dados atuais do cliente:");
+        System.out.println(produtoDesejado);
+        System.out.println("-----------------------------------");
+
+        String descricao = Util.lerTexto(sc, ">>> Insira a nova descrição: ");
+        double preco = Util.convDouble(sc, ">>> Insira o novo preço: ");
+        int estoque = Util.convInt(sc, ">>> Insira a nova quantidade no estoque: ");
+
+
+        Produto produtoAtualizado = new Produto(id, )
     }
 }

@@ -62,7 +62,7 @@ public class VendaItemDAO {
                     maiorId = v.getId();
                 }
             }
-            novoId = maiorId;
+            novoId = maiorId + 1;
         }
         obj.setId(novoId);
         objetos.add(obj);

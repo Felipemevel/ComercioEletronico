@@ -51,6 +51,19 @@ public class ProdutoDAO {
         }
     }
     public void inserir (Produto obj){
+        int novoId = 1;
+
+        if (!objetos.isEmpty()){
+            int maiorId = 0;
+
+            for (Produto p : objetos){
+                if (p.getId() > maiorId){
+                    maiorId = p.getId();
+                }
+            }
+            novoId = maiorId;
+        }
+        obj.setId(novoId);
         objetos.add(obj);
         salvar();
     }

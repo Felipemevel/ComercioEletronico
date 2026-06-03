@@ -3,6 +3,9 @@ package ui;
 import dao.CategoriaDAO;
 import dao.ClienteDAO;
 import dao.ProdutoDAO;
+import model.Cliente;
+import model.Produto;
+import util.Util;
 
 import java.util.Scanner;
 
@@ -38,8 +41,7 @@ public class UI {
         System.out.println("= 4 - Sair                             =");
         System.out.println("========================================");
 
-        System.out.print("> Digite a opção: ");
-        return sc.nextInt();
+        return Util.convInt(sc, "> Digite a opção: ");
     }
 
     public static void menuClientes(){
@@ -55,14 +57,13 @@ public class UI {
             System.out.println("= 5 - Voltar                           =");
             System.out.println("========================================");
 
-            System.out.print("> Digite a opção: ");
-            option = sc.nextInt();
+            option = Util.convInt(sc, "> Digite a opção: ");
 
             switch (option){
-                case 1 -> System.out.println("Em construção...");
-                case 2 -> System.out.println("Em construção...");
-                case 3 -> System.out.println("Em construção...");
-                case 4 -> System.out.println("Em construção...");
+                case 1 -> inserirCliente();
+                case 2 -> listarClientes();
+                case 3 -> atualizarCliente();
+                case 4 -> removeCliente();
                 case 5 -> System.out.println(">>> Voltando ao menu principal...");
                 default -> System.out.println(">>> Opção inválida!");
             }
@@ -82,8 +83,7 @@ public class UI {
             System.out.println("= 5 - Voltar                           =");
             System.out.println("========================================");
 
-            System.out.print("> Digite a opção: ");
-            option = sc.nextInt();
+            option = Util.convInt(sc, "> Digite a opção: ");
 
             switch (option){
                 case 1 -> System.out.println("Em construção...");
@@ -109,8 +109,7 @@ public class UI {
             System.out.println("= 5 - Voltar                           =");
             System.out.println("========================================");
 
-            System.out.print("> Digite a opção: ");
-            option = sc.nextInt();
+            option = Util.convInt(sc, "> Digite a opção: ");
 
             switch (option){
                 case 1 -> System.out.println("Em construção...");
@@ -123,5 +122,87 @@ public class UI {
         } while (option != 5);
     }
 
+    /**
+     *  MÉTODOS CLIENTE
+     */
+    public static void inserirCliente(){
+        String nome = Util.lerTexto(sc, "> Insira o nome do cliente");
+        String fone = Util.lerTexto(sc, "> Insira o telefone do cliente");
+        String email = Util.lerTexto(sc, "> Insira o e-mail do cliente");
 
+        Cliente novoCliente = new Cliente(0, nome, email, fone);
+        clienteDAO.inserir(novoCliente);
+
+        System.out.println(">>> Cliente cadastrado com sucesso!");
+    }
+
+    public static void listarClientes(){
+        System.out.println("\n=== LISTA DE CLIENTES ===");
+
+        var lista = clienteDAO.listar();
+        if (lista.isEmpty()){
+            System.out.println("Nenhum cliente cadastrado no sistema.");
+            return;
+        }
+        System.out.println("\n=== LISTA DE CLIENTES ===");
+        for (Cliente c : lista){
+            System.out.println("= " + c);
+            System.out.println("-----------------------------------");
+        }
+
+    }
+
+    public static void atualizarCliente(){
+        System.out.println("\n=== INSERIR NOVO CLIENTE ===");
+
+        int id = Util.convInt(sc, "> Insira o ID do cliente que deseja atualizar os dados: ");
+        Cliente clienteDesejado = clienteDAO.listarId(id);
+
+        if (clienteDesejado == null){
+            System.out.println(">>> Erro: Cliente com ID " + id + " não encontrado.");
+            return;
+        }
+        System.out.println("\nDados atuais do cliente:");
+        System.out.println(clienteDesejado);
+        System.out.println("-----------------------------------");
+
+        String nome = Util.lerTexto(sc, "> Insira o novo nome: ");
+        String fone = Util.lerTexto(sc, "> Insira o novo telefone: ");
+        String email = Util.lerTexto(sc, "> Insira o novo e-mail: ");
+
+        Cliente clienteAtualizado = new Cliente(id, nome, fone, email);
+        clienteDAO.atualizar(clienteAtualizado);
+    }
+
+    public static void removeCliente(){
+        System.out.println("\n=== REMOVER CLIENTE ===");
+
+        int id = Util.convInt(sc, "> Insira o ID do cliente que deseja remover: ");
+        Cliente clienteDesejado = clienteDAO.listarId(id);
+
+        if (clienteDesejado == null){
+            System.out.println(">>> Erro: Cliente com ID " + id + " não encontrado.");
+            return;
+        }
+        System.out.println("\nDados do cliente:");
+        System.out.println(clienteDesejado);
+        System.out.println("-----------------------------------");
+
+        clienteDAO.excluir(clienteDesejado);
+    }
+
+    /**
+     *  MÉTODOS PRODUTOS
+     */
+
+    public static void inserirProduto(){
+        String descricao = Util.lerTexto(sc, ">>> Insira a descrição do produto: ");
+        double preco = Util.convDouble(sc, ">>> Insira o preço do produto: ");
+        int estoque = Util.convInt(sc, ">>> Insira a quantidade de produtos no estoque: ");
+
+        Produto novoProduto = new Produto(0, descricao, preco, estoque);
+        produtoDAO.inserir(novoProduto);
+
+        System.out.println(">>> Produto cadastrado com sucesso!");
+    }
 }

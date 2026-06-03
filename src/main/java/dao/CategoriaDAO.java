@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import model.Categoria;
+import model.Produto;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,6 +52,19 @@ public class CategoriaDAO {
         }
     }
     public void inserir(Categoria obj){
+        int novoId = 1;
+
+        if (!objetos.isEmpty()){
+            int maiorId = 0;
+
+            for (Categoria c : objetos){
+                if (c.getId() > maiorId){
+                    maiorId = c.getId();
+                }
+            }
+            novoId = maiorId;
+        }
+        obj.setId(novoId);
         objetos.add(obj);
         salvar();
     }

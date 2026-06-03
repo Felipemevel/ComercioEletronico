@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import model.Cliente;
+import model.Produto;
 
 public class ClienteDAO {
 
@@ -51,6 +52,19 @@ public class ClienteDAO {
     }
 
     public void inserir(Cliente obj){
+        int novoId = 1;
+
+        if (!objetos.isEmpty()){
+            int maiorId = 0;
+
+            for (Cliente c : objetos){
+                if (c.getId() > maiorId){
+                    maiorId = c.getId();
+                }
+            }
+            novoId = maiorId;
+        }
+        obj.setId(novoId);
         objetos.add(obj);
         salvar();
     }

@@ -3,6 +3,7 @@ package dao;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import model.Produto;
 import model.VendaItem;
 
 import java.io.File;
@@ -51,6 +52,19 @@ public class VendaItemDAO {
         }
     }
     public void inserir(VendaItem obj){
+        int novoId = 1;
+
+        if (!objetos.isEmpty()){
+            int maiorId = 0;
+
+            for (VendaItem v : objetos){
+                if (v.getId() > maiorId){
+                    maiorId = v.getId();
+                }
+            }
+            novoId = maiorId;
+        }
+        obj.setId(novoId);
         objetos.add(obj);
         salvar();
     }

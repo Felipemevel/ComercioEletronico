@@ -27,4 +27,16 @@ public class Util {
             }
         }
     }
+
+    public static String lerTexto(Scanner sc, String msg){
+            while (true){
+                System.out.print(msg);
+                String input = sc.nextLine();
+
+                if (!input.isEmpty()){
+                    return input;
+                }
+                System.out.println("Erro: Este campo é obrigatório e não pode ficar em branco!");
+            }
+    }
 }

@@ -21,6 +21,7 @@ public class ProdutoDAO {
      */
     public ProdutoDAO(){
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        abrir();
     }
 
     /**

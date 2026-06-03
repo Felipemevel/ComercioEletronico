@@ -21,6 +21,7 @@ public class VendaDAO {
      */
     public VendaDAO(){
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        abrir();
     }
 
     /**

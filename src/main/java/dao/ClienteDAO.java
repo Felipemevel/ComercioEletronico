@@ -21,6 +21,7 @@ public class ClienteDAO {
      */
     public ClienteDAO(){
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        abrir();
     }
 
     /**

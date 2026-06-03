@@ -22,6 +22,7 @@ public class CategoriaDAO {
      */
     public CategoriaDAO(){
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        abrir();
     }
 
     /**

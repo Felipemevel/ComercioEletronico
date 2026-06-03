@@ -22,6 +22,7 @@ public class VendaItemDAO {
      */
     public VendaItemDAO(){
         mapper.enable(SerializationFeature.INDENT_OUTPUT);
+        abrir();
     }
 
     /**

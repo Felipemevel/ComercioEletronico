@@ -63,6 +63,6 @@ public class Produto {
                 " - Descrição: " + descricao +
                 " - Preço: " + preco +
                 " - Estoque: " + estoque +
-                " - ID da Categoria:" + idCategoria;
+                " - ID da Categoria: " + idCategoria;
     }
 }

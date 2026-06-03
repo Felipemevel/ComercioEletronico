@@ -9,11 +9,12 @@ public class Produto {
     private int idCategoria;
 
     public Produto(){}
-    public Produto(int id, String descricao, double preco, int estoque) {
+    public Produto(int id, String descricao, double preco, int estoque, int idCategoria) {
         this.id = id;
         this.descricao = descricao;
         this.preco = preco;
         this.estoque = estoque;
+        this.idCategoria = idCategoria;
     }
 
     public int getId() {
